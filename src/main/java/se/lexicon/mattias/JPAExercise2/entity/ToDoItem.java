@@ -1,9 +1,8 @@
 package se.lexicon.mattias.JPAExercise2.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,9 +10,13 @@ import java.util.UUID;
 @Entity
 public class ToDoItem {
 
+
+    // Does not work? - Have to look in to.
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
 
     private String title;
     private String desc;
@@ -30,7 +33,7 @@ public class ToDoItem {
         this.done = done;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
